@@ -10,7 +10,7 @@ localDataPath = setLocalDataPath(1); % runs local PersonalDataPath (gitignored)
 addpath('functions');
 
 % subject to preprocess
-ss = 3;
+ss = 2;
 sub_label = sprintf('%02d', ss);
 
 ses_label = 'ieeg01';
@@ -69,13 +69,8 @@ for ii = 1:length(data_info)
 
     %%% ------------------------------------------------------------%%% 
     %%% Load events
-    try
-        events =  readtable(fullfile(localDataPath.input, ['sub-' sub_label], ['ses-' ses_label], 'ieeg', ...
-            data_info(ii).eventsname), 'FileType', 'text', 'Delimiter', '\t', 'TreatAsEmpty', 'n/a');
-    catch
-        warning('Error loading events file for %02d, skipping', ii); % e.g., no 2nd run for a certain NSD session
-        continue
-    end
+    events =  readtable(fullfile(localDataPath.input, ['sub-' sub_label], ['ses-' ses_label], 'ieeg', ...
+        data_info(ii).eventsname), 'FileType', 'text', 'Delimiter', '\t', 'TreatAsEmpty', 'n/a');
 
     % make sure status description is a cell array to concatenate
     if ~iscell(events.status_description)
@@ -158,6 +153,9 @@ for ii = 1:length(data_info)
         BB(:,:,jj) = bb_power(:, (round(eventsSTCurr.onset(jj)*srate)+samprange(1)+1) : (round(eventsSTCurr.onset(jj)*srate)+samprange(end)+1)); % convert to 1 indexing
     end
     
+    % write code to extract alpha here at some point
+    %Malpha
+
     %%% ------------------------------------------------------------%%% 
     %%% Concatenate data and events
     Mdata = cat(3, Mdata, M);
@@ -169,6 +167,7 @@ end
 % save as single to save space
 Mbb = single(Mbb);
 Mdata = single(Mdata);
+%Malpha = single(Malpha);
 
 % Save all outputs
 outdir = fullfile(localDataPath.output,'derivatives','preproc_car',['sub-' sub_label]);

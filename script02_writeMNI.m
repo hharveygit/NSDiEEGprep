@@ -36,7 +36,7 @@ xyzsMni152 = ieeg_getXyzMni(elecmatrix, niiPath, rootdirMni);
 % save as separate MNI 152 electrodes table
 elecsMni152Path = fullfile(localDataPath.input, ['sub-' sub_label], ['ses-' ses_label], 'ieeg', ['sub-' sub_label '_ses-' ses_label '_space-' 'MNI152NLin2009' '_electrodes.tsv']);
 elecsMni152 = elecs;
-elecsMni152.x = xyzsMni152(:, 1); elecsMni152.y = xyzsBipMni152(:, 2); elecsMni152.z = xyzsBipMni152(:, 3);
+elecsMni152.x = xyzsMni152(:, 1); elecsMni152.y = xyzsMni152(:, 2); elecsMni152.z = xyzsMni152(:, 3);
 writetable(elecsMni152, elecsMni152Path, 'FileType', 'text', 'Delimiter', '\t');
 
 fprintf('Saved to %s\n', elecsMni152Path);
@@ -47,13 +47,13 @@ fprintf('Saved to %s\n', elecsMni152Path);
 [xyzsMni305, vertIdxFsavg, minDists, surfUsed] = ieeg_mni305ThroughFsSphere(elecmatrix, elecs.hemisphere, FSdir, FSRootdir, 'closest', 5);
 
 % save as separate MNI 305 electrodes table
-elecsBipMni305Path = fullfile(localDataPath.input, ['sub-' sub_label], ['ses-' ses_label], 'ieeg', ['sub-' sub_label '_ses-' ses_label '_space-' 'MNI305' '_electrodes.tsv']);
-elecsBipMni305 = elecs;
-elecsBipMni305.x = xyzsMni305(:, 1); elecsBipMni305.y = xyzsMni305(:, 2); elecsBipMni305.z = xyzsMni305(:, 3);
-elecsBipMni305.vertex_fsaverage = vertIdxFsavg; % also add a column to indicate vertex on fsavg, so we can easily get position for inflated brain
-writetable(elecsBipMni305, elecsBipMni305Path, 'FileType', 'text', 'Delimiter', '\t');
+elecsMni305Path = fullfile(localDataPath.input, ['sub-' sub_label], ['ses-' ses_label], 'ieeg', ['sub-' sub_label '_ses-' ses_label '_space-' 'MNI305' '_electrodes.tsv']);
+elecsMni305 = elecs;
+elecsMni305.x = xyzsMni305(:, 1); elecsMni305.y = xyzsMni305(:, 2); elecsMni305.z = xyzsMni305(:, 3);
+elecsMni305.vertex_fsaverage = vertIdxFsavg; % also add a column to indicate vertex on fsavg, so we can easily get position for inflated brain
+writetable(elecsMni305, elecsMni305Path, 'FileType', 'text', 'Delimiter', '\t');
 
-fprintf('Saved to %s\n', elecsBipMni305Path);
+fprintf('Saved to %s\n', elecsMni305Path);
 
 %% 3) Calculate bipolar electrodes in native space, save
 
