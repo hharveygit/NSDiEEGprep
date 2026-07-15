@@ -152,9 +152,6 @@ for ii = 1:length(data_info)
     for jj = 1:height(eventsSTCurr)
         BB(:,:,jj) = bb_power(:, (round(eventsSTCurr.onset(jj)*srate)+samprange(1)+1) : (round(eventsSTCurr.onset(jj)*srate)+samprange(end)+1)); % convert to 1 indexing
     end
-    
-    % write code to extract alpha here at some point
-    %Malpha
 
     %%% ------------------------------------------------------------%%% 
     %%% Concatenate data and events
@@ -167,7 +164,6 @@ end
 % save as single to save space
 Mbb = single(Mbb);
 Mdata = single(Mdata);
-%Malpha = single(Malpha);
 
 % Save all outputs
 outdir = fullfile(localDataPath.output,'derivatives','preproc_car',['sub-' sub_label]);

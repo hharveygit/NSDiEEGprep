@@ -3,6 +3,7 @@
 data/
 output/
 testing/
+personal_scripts/
 
 % ignore personal data path 
 personalDataPath.m
